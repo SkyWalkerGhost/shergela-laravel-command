@@ -24,5 +24,11 @@
                 "Shergela\\LaravelCommand\\ShergelaServiceProvider"
             ]
         }
+    },
+    "repositories": {
+        "package": {
+            "name": "shergela/laravel-command",
+            "version": "v1.0"
+            
     }
 }
