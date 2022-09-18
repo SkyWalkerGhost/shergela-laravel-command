@@ -24,5 +24,15 @@
                 "Shergela\\LaravelCommand\\ShergelaServiceProvider"
             ]
         }
-    }
+    },
+    "repositories": [
+        {
+            "type": "package",
+            "url": "https://github.com/SkyWalkerGhost/shergela-laravel-command",
+            "package": {
+                "name": "shergela/laravel-command",
+                "version": "v1.0"
+            }
+        }
+    ]
 }
