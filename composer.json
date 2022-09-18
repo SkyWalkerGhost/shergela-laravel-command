@@ -3,7 +3,8 @@
     "description": "Create a folder, files and blade files using Artisan command CLI.",
     "type": "library",
     "require": {
-        "php": ">=8.0"
+        "php": ">=8.0",
+        "shergela/laravel-command": "1.0.*"
     },
     "license": "MIT",
     "authors": [
