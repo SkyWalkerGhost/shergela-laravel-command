@@ -1,0 +1,20 @@
+<?php
+
+namespace {{ CLASS_NAMESPACE }};
+
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Str;
+
+class {{ CLASS }}
+{
+    public function __construct()
+    {
+        // Your code here
+    }
+
+    public function index(Request $request): void
+    {
+        // Write logic here
+    }
+}

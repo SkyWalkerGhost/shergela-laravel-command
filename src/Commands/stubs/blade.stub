@@ -1,0 +1,7 @@
+@extends('app')
+
+@section('content')
+	
+	<h1> @welcomeMsg </h1>
+
+@endsection
