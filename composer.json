@@ -25,10 +25,13 @@
             ]
         }
     },
-    "repositories": {
-        "package": {
-            "name": "shergela/laravel-command",
-            "version": "v1.0"
-            
-    }
+    "repositories": [
+        {
+            "type": "package",
+            "package": {
+                "name": "shergela/laravel-command",
+                "version": "1.0"
+            }
+        }
+    ]
 }
