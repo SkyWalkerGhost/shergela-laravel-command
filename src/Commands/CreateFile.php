@@ -73,13 +73,23 @@ class CreateFile extends Command
             $this->argument('name')
         );
 
+        $explodeFileName = explode('\\', $name);
+
+        $upperCaseDirectoryName = [];
+
+        foreach ($explodeFileName as $name) {
+            $upperCaseDirectoryName[] = ucfirst($name);
+        }
+
+        $directoryPath = implode('/', $upperCaseDirectoryName);
+
         $namespace = $this->getDefaultNamespace();
 
-        $namespace .= '\\' . $name;
+        $namespace .= '\\' . $directoryPath;
 
         $namespace = Str::replace('/', '\\', $namespace);
 
-        return 'app\\' . trim($namespace, '\\');
+        return 'App\\' . trim($namespace, '\\');
     }
 
 
