@@ -42,15 +42,7 @@ class CreateFile extends Command
 
     protected function getDestinationFilePath(): string
     {
-        $explodeFileName = explode('/', $this->getFileName());
-
-        $upperCaseDirectoryName = [];
-
-        foreach ($explodeFileName as $name) {
-            $upperCaseDirectoryName[] = ucfirst($name);
-        }
-
-        $directoryPath = implode('/', $upperCaseDirectoryName);
+        $directoryPath = $this->upperCase($this->getFileName(), '/');
 
         return app_path(). '/'. $directoryPath;
     }
@@ -73,15 +65,7 @@ class CreateFile extends Command
             $this->argument('name')
         );
 
-        $explodeFileName = explode('\\', $name);
-
-        $upperCaseDirectoryName = [];
-
-        foreach ($explodeFileName as $name) {
-            $upperCaseDirectoryName[] = ucfirst($name);
-        }
-
-        $directoryPath = implode('/', $upperCaseDirectoryName);
+        $directoryPath = $this->upperCase($name, '\\');
 
         $namespace = $this->getDefaultNamespace();
 
@@ -102,14 +86,13 @@ class CreateFile extends Command
     {
         $path = Str::replace('\\', '/', $this->getDestinationFilePath());
 
+        if (! File::isDirectory($dir = dirname($path))) {
+            File::makeDirectory($dir);
+        }
+        
         $getClass = class_basename($this->getFileName());
         $className = Str::replace('.php', '', Str::ucfirst($getClass));
 
-        if (! File::isDirectory($dir = dirname($path))) {
-            File::makeDirectory($dir, 0777, true);
-        }
-
-        $stubFilePath = $this->getStubFilePath();
         $data = [
             'CLASS_NAMESPACE' => $this->getClassNamespace(),
             'CLASS' => $className,
@@ -117,6 +100,7 @@ class CreateFile extends Command
 
         $path = Str::replace(lcfirst($className), ucfirst($className), $path);
 
+        $stubFilePath = $this->getStubFilePath();
         $contents = $this->getContents($stubFilePath, $data);
 
         $filesystem = new Filesystem();
@@ -143,5 +127,20 @@ class CreateFile extends Command
         }
 
         return $contents;
+    }
+
+    public function upperCase(string $fileName, string $parameter): string
+    {
+        $explodeFilePath = explode($parameter, $fileName);
+
+        $upperCaseDirectoryName = [];
+
+        foreach ($explodeFilePath as $name) {
+            $upperCaseDirectoryName[] = ucfirst($name);
+        }
+
+        $directoryPath = implode('/', $upperCaseDirectoryName);
+
+        return $directoryPath;
     }
 }

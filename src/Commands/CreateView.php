@@ -65,7 +65,7 @@ class CreateView extends Command
         $path = Str::replace('\\', '/', $this->getDestinationFilePath());
 
         if (! File::isDirectory($dir = dirname($path))) {
-            File::makeDirectory($dir, 0777, true);
+            File::makeDirectory($dir);
         }
 
         $data = [
