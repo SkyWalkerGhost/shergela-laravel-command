@@ -24,6 +24,7 @@ return [
   	<ol>
     	<li><a href="#Create-File">Create File</a></li>
     	<li><a href="#Create-Views">Create Views</a></li>
+        <li><a href="#Middleware-List">Middleware List</a></li>
   	</ol>
 </div>
 <!-- End list of command -->
@@ -99,6 +100,25 @@ php artisan create:file users.blade.php
 	<h1> Hello World </h1>
 	
 @endsection
+```
+
+## Middleware List
+__Display all middlewares.__\
+`php artisan middleware:list`
+
+```
++--------------------------------------------------+--------------------------------------+-----------+----------+
+| Full Path                                        | File Name                            | Extension | Size     |
++--------------------------------------------------+--------------------------------------+-----------+----------+
+| C:\xampp\htdocs\laravel\app\Http\Middleware      | Authenticate.php                     | .php      | 0.49 kb  |
+| C:\xampp\htdocs\laravel\app\Http\Middleware      | EncryptCookies.php                   | .php      | 0.324 kb |
+| C:\xampp\htdocs\laravel\app\Http\Middleware      | PreventRequestsDuringMaintenance.php | .php      | 0.383 kb |
+| C:\xampp\htdocs\laravel\app\Http\Middleware      | RedirectIfAuthenticated.php          | .php      | 0.963 kb |
+| C:\xampp\htdocs\laravel\app\Http\Middleware      | TrimStrings.php                      | .php      | 0.4 kb   |
+| C:\xampp\htdocs\laravel\app\Http\Middleware      | TrustHosts.php                       | .php      | 0.392 kb |
+| C:\xampp\htdocs\laravel\app\Http\Middleware      | TrustProxies.php                     | .php      | 0.677 kb |
+| C:\xampp\htdocs\laravel\app\Http\Middleware      | VerifyCsrfToken.php                  | .php      | 0.337 kb |
++--------------------------------------------------+--------------------------------------+-----------+----------+
 ```
 
 
