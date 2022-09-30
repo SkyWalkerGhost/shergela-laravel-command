@@ -159,9 +159,9 @@ __Display all Models.__\
 ```php artisan model:list```
 
 ```
-
-```
 php artisan model:list
+```
+
 ```
 +--------------------------------------------------+--------------------------------------+-----------+----------+
 | Full Path                                        | File Name                            | Extension | Size     |
