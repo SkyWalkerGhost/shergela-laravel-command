@@ -107,7 +107,9 @@ php artisan create:file users.blade.php
 
 ## Middleware List
 __Display all Middlewares.__\
-```php artisan middleware:list```
+```
+php artisan middleware:list
+```
 
 ```
 +--------------------------------------------------+--------------------------------------+-----------+----------+
@@ -126,7 +128,9 @@ __Display all Middlewares.__\
 
 ## Event List
 __Display all Events.__\
-```php artisan event:list```
+```
+php artisan event:list
+```
 
 ```
 +--------------------------------------------------+--------------------------------------+-----------+----------+
@@ -141,7 +145,9 @@ __Display all Events.__\
 
 ## Jobs List
 __Display all Jobs.__\
-```php artisan jobs:list```
+```
+php artisan jobs:list
+```
 
 ```
 +--------------------------------------------------+--------------------------------------+-----------+----------+
@@ -156,7 +162,6 @@ __Display all Jobs.__\
 
 ## Models List
 __Display all Models.__\
-```php artisan model:list```
 
 ```
 php artisan model:list
