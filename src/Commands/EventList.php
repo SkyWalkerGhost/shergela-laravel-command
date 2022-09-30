@@ -7,21 +7,21 @@ use Symfony\Component\Console\Formatter\OutputFormatterStyle;
 use Shergela\LaravelCommand\Commands\Support\DataTable;
 use Exception;
 
-class MiddlewareList extends Command
+class EventList extends Command
 {
     /**
      * The name and signature of the console command.
      *
      * @var string
      */
-    protected $signature = 'middleware:list';
+    protected $signature = 'event:list';
 
     /**
      * The console command description.
      *
      * @var string
      */
-    protected $description = 'Display all middleware lists';
+    protected $description = 'Display all event lists';
 
     /**
      * Execute the console command.
@@ -31,7 +31,7 @@ class MiddlewareList extends Command
 
     protected function getFolderPath(): string
     {
-        return app_path() . '\\Http\\Middleware';
+        return app_path() . '\\Events';
     }
 
     public function handle()
@@ -46,7 +46,7 @@ class MiddlewareList extends Command
             $tableHeaders = $dataTable->tableHeaders();
 
             $this->newLine(1);
-            $this->info('Found ' . count($data) . ' files in middleware list');
+            $this->info('Found ' . count($data) . ' files in events list');
             $this->newLine(1);
 
             $this->table(
@@ -61,3 +61,4 @@ class MiddlewareList extends Command
         return 0;
     }
 }
+

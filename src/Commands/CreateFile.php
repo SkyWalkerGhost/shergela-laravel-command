@@ -3,9 +3,11 @@
 namespace Shergela\LaravelCommand\Commands;
 
 use Illuminate\Console\Command;
-use Illuminate\Support\Facades\File;
-use Illuminate\Filesystem\Filesystem;
 use Illuminate\Support\Str;
+use Shergela\LaravelCommand\Commands\Support\FileGenerator;
+use Shergela\LaravelCommand\Commands\Support\FileCreator;
+use Symfony\Component\Console\Formatter\OutputFormatterStyle;
+use Exception;
 
 class CreateFile extends Command
 {
@@ -29,6 +31,10 @@ class CreateFile extends Command
      * @return int
      */
 
+    public function __construct(protected FileGenerator $fileGenerator) {
+        parent::__construct();
+    }
+
     protected function getFileName(): string
     {
         $file = Str::camel($this->argument('name'));
@@ -42,7 +48,7 @@ class CreateFile extends Command
 
     protected function getDestinationFilePath(): string
     {
-        $directoryPath = $this->upperCase($this->getFileName(), '/');
+        $directoryPath = $this->fileGenerator->upperOrLowerCaseDirectoryName($this->getFileName(), '/', 'upper');
 
         return app_path(). '/'. $directoryPath;
     }
@@ -65,7 +71,7 @@ class CreateFile extends Command
             $this->argument('name')
         );
 
-        $directoryPath = $this->upperCase($name, '\\');
+        $directoryPath = $this->fileGenerator->upperOrLowerCaseDirectoryName($name, '\\', 'uppercase');
 
         $namespace = $this->getDefaultNamespace();
 
@@ -84,11 +90,12 @@ class CreateFile extends Command
 
     public function handle()
     {
-        $path = Str::replace('\\', '/', $this->getDestinationFilePath());
+        $style = new OutputFormatterStyle('white', 'green', ['bold']);
+        $this->output->getFormatter()->setStyle('info', $style);
 
-        if (! File::isDirectory($dir = dirname($path))) {
-            File::makeDirectory($dir, 0777, true);
-        }
+        $path = Str::replace('\\', '/', $this->getDestinationFilePath());
+        
+        $this->fileGenerator->createDirectory($path);
         
         $getClass = class_basename($this->getFileName());
         $className = Str::replace('.php', '', Str::ucfirst($getClass));
@@ -103,16 +110,15 @@ class CreateFile extends Command
         $stubFilePath = $this->getStubFilePath();
         $contents = $this->getContents($stubFilePath, $data);
 
-        $filesystem = new Filesystem();
-
-        if (! $filesystem->exists($path)) {
-            $filesystem->put($path, $contents);
+        try {
+            
+            (new FileCreator($path, $contents))->generate();
 
             $this->info('Folder and file created successfully!');
             $this->info('Path: ' . $path);
-        } else {
-            $this->error('File already exists!');
-            $this->error('Path: ' . $path);
+
+        } catch (Exception $e) {
+            $this->error("File : {$e->getMessage()}");
         }
 
         return 0;
@@ -127,20 +133,5 @@ class CreateFile extends Command
         }
 
         return $contents;
-    }
-
-    public function upperCase(string $fileName, string $parameter): string
-    {
-        $explodeFilePath = explode($parameter, $fileName);
-
-        $upperCaseDirectoryName = [];
-
-        foreach ($explodeFilePath as $name) {
-            $upperCaseDirectoryName[] = ucfirst($name);
-        }
-
-        $directoryPath = implode('/', $upperCaseDirectoryName);
-
-        return $directoryPath;
     }
 }

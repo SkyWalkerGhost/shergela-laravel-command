@@ -6,6 +6,10 @@ use Illuminate\Console\Command;
 use Illuminate\Support\Facades\File;
 use Illuminate\Filesystem\Filesystem;
 use Illuminate\Support\Str;
+use Shergela\LaravelCommand\Commands\Support\FileGenerator;
+use Shergela\LaravelCommand\Commands\Support\FileCreator;
+use Symfony\Component\Console\Formatter\OutputFormatterStyle;
+use Exception;
 
 class CreateView extends Command
 {
@@ -29,6 +33,10 @@ class CreateView extends Command
      * @return int
      */
 
+    public function __construct(protected FileGenerator $fileGenerator) {
+        parent::__construct();
+    }
+
     protected function getFileName(): string
     {
         $view = Str::camel($this->argument('name'));
@@ -42,17 +50,13 @@ class CreateView extends Command
 
     protected function getDestinationFilePath(): string
     {
-        $explodeFileName = explode('/', $this->getFileName());
+        $lowerCaseDirectoryName = $this->fileGenerator->upperOrLowerCaseDirectoryName(
+            $this->getFileName(), 
+            '/', 
+            'lower'
+        );
 
-        $upperCaseDirectoryName = [];
-
-        foreach ($explodeFileName as $name) {
-            $upperCaseDirectoryName[] = Str::lower($name);
-        }
-
-        $directoryPath = implode('/', $upperCaseDirectoryName);
-
-        return resource_path(). '/views/'. $directoryPath;
+        return resource_path(). '/views/'. $lowerCaseDirectoryName;
     }
 
     protected function getStubFilePath(): string
@@ -62,11 +66,12 @@ class CreateView extends Command
 
     public function handle()
     {
+        $style = new OutputFormatterStyle('white', 'green', ['bold']);
+        $this->output->getFormatter()->setStyle('info', $style);
+
         $path = Str::replace('\\', '/', $this->getDestinationFilePath());
 
-        if (! File::isDirectory($dir = dirname($path))) {
-            File::makeDirectory($dir, 0777, true);
-        }
+        $this->fileGenerator->createDirectory($path);
 
         $data = [
             '@welcomeMsg' => 'Hello World',
@@ -76,16 +81,16 @@ class CreateView extends Command
 
         $contents = $this->getContents($stubFilePath, $data);
 
-        $filesystem = new Filesystem();
 
-        if (! $filesystem->exists($path)) {
-            $filesystem->put($path, $contents);
+        try {
+            
+            (new FileCreator($path, $contents))->generate();
 
             $this->info('Directories and blade file are successfully created!');
             $this->info('Path: ' . $path);
-        } else {
-            $this->error('File already exists!');
-            $this->error('Path: ' . $path);
+
+        } catch (Exception $e) {
+            $this->error("File : {$e->getMessage()}");
         }
 
         return 0;

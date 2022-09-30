@@ -25,6 +25,9 @@ return [
     	<li><a href="#Create-File">Create File</a></li>
     	<li><a href="#Create-Views">Create Views</a></li>
         <li><a href="#Middleware-List">Middleware List</a></li>
+        <li><a href="#Event-List">Event List</a></li>
+        <li><a href="#Jobs-List">Jobs List</a></li>
+        <li><a href="#Models-List">Models List</a></li>
   	</ol>
 </div>
 <!-- End list of command -->
@@ -103,7 +106,7 @@ php artisan create:file users.blade.php
 ```
 
 ## Middleware List
-__Display all middlewares.__\
+__Display all Middlewares.__\
 `php artisan middleware:list`
 
 ```
@@ -118,6 +121,50 @@ __Display all middlewares.__\
 | C:\xampp\htdocs\laravel\app\Http\Middleware      | TrustHosts.php                       | .php      | 0.392 kb |
 | C:\xampp\htdocs\laravel\app\Http\Middleware      | TrustProxies.php                     | .php      | 0.677 kb |
 | C:\xampp\htdocs\laravel\app\Http\Middleware      | VerifyCsrfToken.php                  | .php      | 0.337 kb |
++--------------------------------------------------+--------------------------------------+-----------+----------+
+```
+
+## Event List
+__Display all Events.__\
+`php artisan event:list`
+
+```
++--------------------------------------------------+--------------------------------------+-----------+----------+
+| Full Path                                        | File Name                            | Extension | Size     |
++--------------------------------------------------+--------------------------------------+-----------+----------+
+| C:\xampp\htdocs\laravel\app\Events               | Mail.php                             | .php      | 0.49 kb  |
+| C:\xampp\htdocs\laravel\app\Events               | Subscribe.php                        | .php      | 0.124 kb |
+| C:\xampp\htdocs\laravel\app\Events               | PasswordRecovery.php                 | .php      | 0.384 kb |
++--------------------------------------------------+--------------------------------------+-----------+----------+
+```
+
+
+## Jobs List
+__Display all Jobs.__\
+`php artisan jobs:list`
+
+```
++--------------------------------------------------+--------------------------------------+-----------+----------+
+| Full Path                                        | File Name                            | Extension | Size     |
++--------------------------------------------------+--------------------------------------+-----------+----------+
+| C:\xampp\htdocs\laravel\app\Jobs                 | UserJob.php                          | .php      | 0.49 kb  |
+| C:\xampp\htdocs\laravel\app\Jobs                 | AssignUserJob.php                    | .php      | 0.124 kb |
+| C:\xampp\htdocs\laravel\app\Jobs                 | TestJob.php                          | .php      | 0.483 kb |
++--------------------------------------------------+--------------------------------------+-----------+----------+
+```
+
+
+## Models List
+__Display all Models.__\
+`php artisan jobs:list`
+
+```
++--------------------------------------------------+--------------------------------------+-----------+----------+
+| Full Path                                        | File Name                            | Extension | Size     |
++--------------------------------------------------+--------------------------------------+-----------+----------+
+| C:\xampp\htdocs\laravel\app\Models               | User.php                             | .php      | 0.419 kb  |
+| C:\xampp\htdocs\laravel\app\Models               | Post.php                             | .php      | 0.524 kb |
+| C:\xampp\htdocs\laravel\app\Models               | Roles.php                            | .php      | 0.483 kb |
 +--------------------------------------------------+--------------------------------------+-----------+----------+
 ```
 
