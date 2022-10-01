@@ -1,6 +1,6 @@
 {
     "name": "shergela/laravel-command",
-    "description": "Create a folder, files and blade files using Artisan command CLI.",
+    "description": "Create a folder, files and blade files using Artisan command CLI and more.",
     "type": "library",
     "require": {
         "php": ">=8.0"
