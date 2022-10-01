@@ -71,7 +71,7 @@ class CreateFile extends Command
             $this->argument('name')
         );
 
-        $directoryPath = $this->fileGenerator->upperOrLowerCaseDirectoryName($name, '\\', 'uppercase');
+        $directoryPath = $this->fileGenerator->upperOrLowerCaseDirectoryName($name, '\\', 'upper');
 
         $namespace = $this->getDefaultNamespace();
 
