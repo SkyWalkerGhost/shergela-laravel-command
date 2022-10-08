@@ -96,7 +96,7 @@ php artisan create:file users.blade.php
 ```
 
 ```
-@extends('app')
+@extends('layouts.app')
 
 @section('content')
 
